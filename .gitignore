@@ -1,65 +1,10 @@
-# Ignore stable versions folder (稳定版)
+# Ignore stable versions folder (稳定版) only
 稳定版/
 
-# Python
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-.venv/
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# PyTorch
-*.pth
-*.pt
-*.ckpt
-checkpoints/
-model_*.pth
-*.pkl
-
-# Jupyter Notebook
-.ipynb_checkpoints
-*.ipynb
-
-# Logs and outputs
-logs/
-lightning_logs/
-tensorboard_logs/
-outputs/
-fdrs/
-*.log
-
-# Data files (uncomment if you don't want to track data)
-# *.csv
-# *.tsv
-# *.json
-# *.hdf5
-# *.h5
-# val_data/
 
 # OS generated files
 .DS_Store
@@ -69,18 +14,3 @@ fdrs/
 .Trashes
 ehthumbs.db
 Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Temporary files
-*.tmp
-*.temp
-~*
-
-# Cache directories
-.cache/
-.pytest_cache/
