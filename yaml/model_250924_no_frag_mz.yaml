@@ -1,0 +1,59 @@
+n_log: 1
+# input param
+# data_path: "/guotiannan/train_data_20250830/decoy_base_rt_shift;/guotiannan/train_data_20250830/decoy_base_reverse0;/guotiannan/train_data_20250830/diann20_target_rt_shift;/guotiannan/train_data_20250830/diann20_target;/ssdwork/wangshuaiyao/dia-bert-tims_3d/batch2/target/20250912_smooth_no_zero;/ssdwork/wangshuaiyao/dia-bert-tims_3d/batch2/target_rt_shift/20250912_smooth_no_zero;/ssdwork/wangshuaiyao/dia-bert-tims_3d/batch2/train_data_new20250913/release/top2n;/ssdwork/wangshuaiyao/dia-bert-tims_3d/batch2/train_data_new20250913/release/top2n_rt_shift;/ssdwork/wangshuaiyao/dia-bert-tims_3d/batch2/train_data_new20250913/only_tims/top2n;/ssdwork/wangshuaiyao/dia-bert-tims_3d/batch2/train_data_new20250913/only_tims/top2n_rt_shift"
+data_path: "/guotiannan/train_data_20250830/decoy_base_rt_shift;/guotiannan/train_data_20250830/decoy_base_reverse0;/guotiannan/train_data_20250830/diann20_target_rt_shift;/guotiannan/train_data_20250830/diann20_target"
+model_path: ""
+
+# out param
+tb_summarywriter: "/wangshuaiyao/jiangheng/dia-model/logs/model_250924_no_frag_mz"
+out_path: "/wangshuaiyao/jiangheng/dia-model/fdrs/model_250924_no_frag_mz"
+model_save_folder_path: "/wangshuaiyao/jiangheng/dia-model/checkpoints/model_250924_no_frag_mz"
+
+warmup_ratio: 0.1 # warmup ratio of max_iters
+learning_rate: 8e-4 #5e-4 5e-5
+min_lr: 4e-5 # 1e-5
+weight_decay: 4e-5
+dropout: 0.2
+eps: 1e-5
+train_strategy: 'ddp' # ddp, deepspeed_stage_2, deepspeed_stage_2_offload
+warmup_strategy: 'exp' # exp or cos or constant
+optim_weight_part_decay: True
+selfAdaptiveTraining: 'BCE' # BCE, focal_loss
+
+# CE, SCE loss
+momentum: 0.95
+es: 5
+sce_alpha: 1.0
+sce_beta: 0.5
+
+# elr loss
+ela_lamb: 2 # 5
+ela_beta: 0.9
+
+# focal_loss
+alpha: -1
+gamma: 3
+reduction: 'mean'
+
+
+# ema
+model_ema_decay: 0.99
+
+# Training/inference options.
+train_batch_size: 6144 # the batch size of train phase
+predict_batch_size: 6144 # the batch size of val phase
+buffer_size: 20 # the buffer size of train phase to shuffle
+train_step_ratio: 0.25 # tensorboard monitor ratio of train phase
+val_step_ratio: 1.0 # tensorboard monitor ratio of val phase
+grad_accumulation: 1 # Accumulated gradients runs K small batches of size N before doing a backwards pass
+gradient_clip_val: 10.0
+
+logger:
+epochs: 30
+seed: 123
+# model checkpoint
+num_sanity_val_steps: 0 # 0: 关闭开始训练前的validaion,直接开始训练; -1: 先validaion，后训练
+save_model: True
+save_weights_only: False
+ckpt_interval: 100
+resume_checkpoint: ""

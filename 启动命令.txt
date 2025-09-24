@@ -1,0 +1,6 @@
+训练参数在这里 /wangshuaiyao/DIArt_model_250813/yaml/model_250913.yaml
+
+训练提交代码参考：cd /wangshuaiyao/DIArt_model_250813; python train.py --config /wangshuaiyao/DIArt_model_250813/yaml/model_250913.yaml
+
+cd /wangshuaiyao/DIArt_model_250813; python train.py --config /wangshuaiyao/DIArt_model_250813/yaml/model_250922_2_wdecay1e_4.yaml
+
