@@ -1,0 +1,56 @@
+改动要求：把入模的frag_mz去掉，训练看一下
+原本的 frag_info 是 72 x 4 的维度，去掉之后会变成 72 x 3 的维度
+其中 frag_mz 是 frag_info 的第 0 列
+
+---
+
+train.py :
+# 新加入函数 _rm_fragMZ 
+# 修改旧函数 forward()
+
+    def _rm_fragMZ(
+        self,
+        frag_info
+    ):
+        # 去除frag_mz, 从(batch, 72, 4) ==> (batch, 72, 3) 
+        frag_info = frag_info[:, :, 1:]
+        scale_factors = torch.rand_like(frag_info[:, :, 0]) * (1.05 - 0.95) + 0.95
+        frag_info[:, :, 0] *= scale_factors
+        return frag_info
+
+    def forward(
+            self,
+            rsm: Tensor,
+            frag_info: Tensor,
+            feat: Tensor,
+    ) -> tuple[Tensor]:
+        """Model forward pass."""
+        # frag_info数据从(batch, 72, 4) ==> (batch, 72, 3) 
+        frag_info = self._rm_fragMZ(frag_info)
+        return self.model(rsm, frag_info, feat)
+
+    # def forward(
+    #         self,
+    #         rsm: Tensor,
+    #         frag_info: Tensor,
+    #         feat: Tensor,
+    # ) -> tuple[Tensor]:
+    #     """Model forward pass."""
+    #     return self.model(rsm, frag_info, feat)
+
+---
+
+model.py :
+# class DIArtModel(nn.Module) 中修改 self.num_embeddings_1 的 d_features 维度从 4 改为 3
+
+        # 数值型变量embedding
+        embedding_arch = ['shared_linear', 'batchnorm', 'relu']
+        # n_features: embedding维度；d_feature：输入维度；d_embedding：输出维度
+
+        # self.num_embeddings_1 = NumEmbeddings(n_features=channels, d_embedding=16,
+        #                                       embedding_arch=embedding_arch,
+        #                                       d_feature=4)
+        
+        self.num_embeddings_1 = NumEmbeddings(n_features=channels, d_embedding=16,
+                                              embedding_arch=embedding_arch,
+                                              d_feature=3)

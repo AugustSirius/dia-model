@@ -1,0 +1,48 @@
+# 数据路径配置
+data_path: "/Users/augustsirius/Desktop/00.Project_DIA-CNN/cnn_training_data/diann20_target;/Users/augustsirius/Desktop/00.Project_DIA-CNN/cnn_training_data/diann20_target_rt_shift;/Users/augustsirius/Desktop/00.Project_DIA-CNN/cnn_training_data/decoy_base_reverse0;/Users/augustsirius/Desktop/00.Project_DIA-CNN/cnn_training_data/decoy_base_rt_shift"
+
+# 模型配置
+model_path: ""  # 留空表示从头训练
+model_save_folder_path: "./checkpoints"
+save_model: true
+save_weights_only: false
+
+# 训练参数
+epochs: 50
+train_batch_size: 256
+predict_batch_size: 512
+learning_rate: 0.001
+min_lr: 0.00001
+weight_decay: 0.0001
+dropout: 0.2
+eps: 0.00001
+gradient_clip_val: 1.0
+grad_accumulation: 1
+
+# 优化器配置
+optim_weight_part_decay: true
+warmup_ratio: 0.1
+warmup_strategy: "cos"  # 可选: "cos", "exp", "constant"
+
+# 损失函数配置
+selfAdaptiveTraining: "BCE"  # 可选: "BCE" 或 "focal_loss"
+# focal loss 参数（如果使用）
+alpha: 0.25
+gamma: 2
+reduction: "mean"
+
+# 训练策略
+train_strategy: "auto"  # 单GPU使用auto，多GPU可用ddp
+num_sanity_val_steps: 0
+
+# 数据加载配置
+buffer_size: 10
+seed: 42
+
+# 监控配置
+tb_summarywriter: "./tensorboard_logs"
+out_path: "./outputs"
+train_step_ratio: 0.1
+
+# GPU配置
+gpu_num: 1  # 根据您的实际GPU数量调整
